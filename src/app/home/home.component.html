@@ -1,0 +1,49 @@
+<div class="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-4">
+  <h1 class="text-3xl font-bold mb-6 text-center">Séminaire Tech 2024 by Neoxia</h1>
+
+  <div class="w-full max-w-md bg-white rounded-lg shadow-md p-6">
+    <div class="mb-4">
+      <textarea
+        [(ngModel)]="inputText"
+        class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        placeholder="Entrez votre requête..."
+        rows="4"
+      ></textarea>
+    </div>
+
+    <!-- Bloc pour afficher la réponse du backend avec retours à la ligne interprétés -->
+    <div *ngIf="response" class="mb-4 p-4 bg-green-100 text-green-800 rounded-md relative">
+      <p><strong>Réponse du serveur :</strong></p>
+      <p [innerHTML]="response | newline"></p>
+
+      <!-- Spinner -->
+      <div *ngIf="isLoading" class="absolute inset-0 flex items-center justify-center bg-white bg-opacity-75">
+        <div class="border-t-4 border-blue-500 border-solid rounded-full w-8 h-8 animate-spin"></div>
+      </div>
+    </div>
+
+    <button
+      (click)="sendRequest()"
+      [disabled]="isLoading"
+      class="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300 disabled:opacity-50"
+    >
+      Envoyer
+    </button>
+  </div>
+
+  <div class="w-full max-w-md mt-6">
+    <h2 class="text-xl font-semibold mb-2">Dernières requêtes</h2>
+    <div *ngFor="let request of lastRequests" class="bg-gray-200 rounded-md p-6 mb-2 relative">
+      <a [routerLink]="['/focus', request.id]" class="text-blue-500 hover:underline">{{ request.resume }}</a>
+      <button
+        (click)="deleteRequest(request.id)"
+        [disabled]="isLoading"
+        class="absolute top-2 right-2 text-red-500 hover:text-red-700"
+      >
+        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>

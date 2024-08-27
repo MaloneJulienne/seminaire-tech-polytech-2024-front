@@ -1,0 +1,30 @@
+<div class="h-screen flex flex-col bg-gray-100 p-4">
+  <!-- Header -->
+  <div class="bg-blue-600 text-white p-4">
+    <h1 class="text-2xl font-bold text-center">Focus Chat</h1>
+  </div>
+
+  <!-- Messages Area -->
+  <div class="flex-1 overflow-y-auto p-4 space-y-4">
+    <!-- User's Request -->
+    <div *ngIf="request" class="flex justify-end">
+      <div class="bg-blue-500 text-white p-4 rounded-lg max-w-xl w-full">
+        <p class="font-semibold">Vous :</p>
+        <p>{{ request }}</p>
+      </div>
+    </div>
+
+    <!-- Bot's Response -->
+    <div *ngIf="response" class="flex justify-start">
+      <div class="bg-gray-300 text-gray-900 p-4 rounded-lg max-w-xl w-full">
+        <p class="font-semibold">Réponse :</p>
+        <p [innerHTML]="response | newline"></p>
+      </div>
+    </div>
+
+    <button (click)="goBack()"
+            class="mt-4 w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300">
+      Retour
+    </button>
+  </div>
+</div>
