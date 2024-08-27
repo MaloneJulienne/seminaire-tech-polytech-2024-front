@@ -33,7 +33,7 @@ export class HomeComponent implements OnInit {
   }
 
   fetchLastRequests() {
-    this.http.get<FilmSynopsis[]>('http://localhost:3000/film-synopsis?take=10')
+    this.http.get<FilmSynopsis[]>('http://localhost:3000/fs?take=10')
       .subscribe({
           next: (res) => {
             this.lastRequests = res
@@ -46,7 +46,7 @@ export class HomeComponent implements OnInit {
   }
 
   saveLastRequest(synopsis: string, resume: string) {
-    this.http.post<void>('http://localhost:3000/film-synopsis', {synopsis, resume})
+    this.http.post<void>('http://localhost:3000/fs', {synopsis, resume})
       .subscribe({
           next: (res) => {
             this.fetchLastRequests();
@@ -63,7 +63,7 @@ export class HomeComponent implements OnInit {
     if (this.inputText.trim()) {
       this.isLoading = true
 
-      this.http.post<{ response: string }>('http://localhost:3000/film-synopsis/generate', {message: this.inputText})
+      this.http.post<{ response: string }>('http://localhost:3000/fs/g', {message: this.inputText})
         .subscribe({
             next: (res) => {
               this.response = res.response;
@@ -82,7 +82,7 @@ export class HomeComponent implements OnInit {
 
   deleteRequest(id: number): void {
     if (confirm('Êtes-vous sûr de vouloir supprimer cette requête ?')) {
-      this.http.delete(`http://localhost:3000/film-synopsis/${id}`)
+      this.http.delete(`http://localhost:3000/fs/${id}`)
         .subscribe(
           {
             next: () => {
