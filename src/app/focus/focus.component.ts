@@ -33,7 +33,7 @@ export class FocusComponent implements OnInit {
   }
 
   fetchRequest(id: string): void {
-    this.http.get<FilmSynopsis>(`http://localhost:3000/film-synopsis/${id}`)
+    this.http.get<FilmSynopsis>(`http://localhost:3000/fs/${id}`)
       .subscribe(
         {
           next: (res) => {
